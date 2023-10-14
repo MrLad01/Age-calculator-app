@@ -1,108 +1,111 @@
-import { useState } from 'react'
-import arrow from "./assets/images/icon-arrow.svg"
-
+import React, { useState } from 'react';
 
 function App() {
+  const [birthDay, setBirthDay] = useState<string>("");
+  const [birthMonth, setBirthMonth] = useState<string>("");
+  const [birthYear, setBirthYear] = useState<string>("");
 
-  const [ birthDay, setBirthDay ] = useState<number>(1);
-  const [ birthMonth, setBirthMonth ] = useState<number>(1);
-  const [ birthYear, setBirthYear ] = useState<number>(2000);
+  const [ageDay, setAgeDay] = useState<number | null>(null);
+  const [ageMonth, setAgeMonth] = useState<number | null>(null);
+  const [ageYear, setAgeYear] = useState<number | null>(null);
 
-  var today = new Date();
-  var year = today.getUTCFullYear();
-  var month = today.getUTCMonth();
-  var day = today.getUTCDay();
+  const [errorDay, setErrorDay] = useState("");
+  const [errorMonth, setErrorMonth] = useState("");
+  const [errorYear, setErrorYear] = useState("");
 
-  var ageYear = year -  birthYear ;
-  var ageMonth = month -  birthMonth ;
-  var ageDay = day - birthDay;
+  const calculateAge = () => {
+    // Get the current date
+    const currentDate = new Date();
 
-  console.log(year, month, day );
-  
+    // Parse input values to integers
+    const day = parseInt(birthDay);
+    const month = parseInt(birthMonth);
+    const year = parseInt(birthYear);
 
+    // Check if the inputs are valid
+    if (
+      isNaN(day) ||
+      isNaN(month) ||
+      isNaN(year) ||
+      day <= 0 ||
+      day > 31 ||
+      month <= 0 ||
+      month > 12 ||
+      year > currentDate.getFullYear()
+    ) {
+      setErrorDay("Invalid day");
+      setErrorMonth("Invalid month");
+      setErrorYear("Invalid year");
+    } else {
+      setErrorDay("");
+      setErrorMonth("");
+      setErrorYear("");
 
+      // Calculate the age
+      const ageDate = new Date(
+        currentDate.getTime() - new Date(year, month - 1, day).getTime()
+      );
 
+      const ageYears = ageDate.getUTCFullYear() - 1970;
+      const ageMonths = ageDate.getUTCMonth();
+      const ageDays = ageDate.getUTCDate() - 1;
+
+      setAgeYear(ageYears);
+      setAgeMonth(ageMonths);
+      setAgeDay(ageDays);
+    }
+  };
 
   return (
-    <main className = 'flex items-center justify-center bg-gray-200 w-screen h-screen'>
-      
-      <div className = 'h-[25rem] xs:max-sm:w-full sm:max-2xl:w-fit xs:max-sm:mx-4 bg-white p-10 grid' >
-
-        <form 
-            action = "" 
-            method = "post" 
-            className = 'flex flex-col' 
-        >
-          <div 
-              className = 'flex'
-              title = 'inputs'
-          >
-
-            <div 
-                className = 'grid mr-2'
-                title = 'birth-day' 
-              >
-              <label htmlFor = "birth-day"> Day </label>
-              <input 
-                  type = "number" 
-                  name = "birth-day" 
-                  id = "birth-day" 
-                  className = 'border m-2 ml-0 xs:max-sm:w-24 sm:max-2xl:w-28 h-12 outline-purple indent-4 '
-                  value = { birthDay }
-                  onChange = { (e) => setBirthDay( parseInt(e.target.value) ) }              
-              />
-            </div>
-
-            <div 
-                className = 'grid mr-2'
-                title = 'birth-month' 
-              >
-              <label htmlFor = "birth-month"> Month </label>
-              <input 
-                  type = "number" 
-                  name = "birth-month" 
-                  id = "birth-month" 
-                  className = 'border m-2 ml-0 xs:max-sm:w-24 sm:max-2xl:w-28 h-12 outline-purple indent-4 '
-                  value = { birthMonth }
-                  onChange = { (e) => setBirthMonth( parseInt(e.target.value) )  }              
-              />
-            </div>
-
-            <div 
-                className = 'grid mr-2'
-                title = 'birth-year' 
-              >
-              <label htmlFor = "birth-year"> Year </label>
-              <input 
-                  type = "number" 
-                  name = "birth-year" 
-                  id = "birth-year" 
-                  className = 'border m-2 ml-0 xs:max-sm:w-24 sm:max-2xl:w-28 h-12 outline-purple indent-4  '
-                  value = { birthYear }
-                  onChange = { (e) => setBirthYear(parseInt(e.target.value)) }              
-              />
-            </div>
-          </div>
-
-          <div className = "flex justify-start items-center">
-            <hr className = 'w-[26rem] border' />
-            <button className = 'w-20 h-20 rounded-full bg-purple flex justify-center items-center ' >
-              <img src = { arrow } />
-            </button>
-          </div>
-
-        </form>
-
-        <div className = "grid">
-          <h1> { ageYear } years </h1>
-          <h1> { ageMonth } months </h1>
-          <h1> { ageDay } days </h1>
-        </div>
-
+    <div>
+      <div>
+        <label htmlFor="birth-day">Day</label>
+        <input
+          type="text"
+          name="birth-day"
+          id="birth-day"
+          value={birthDay}
+          onChange={(e) => setBirthDay(e.target.value)}
+        />
+        {errorDay && <span className="text-red-500">{errorDay}</span>}
       </div>
 
-    </main>
-  )
+      <div>
+        <label htmlFor="birth-month">Month</label>
+        <input
+          type="text"
+          name="birth-month"
+          id="birth-month"
+          value={birthMonth}
+          onChange={(e) => setBirthMonth(e.target.value)}
+        />
+        {errorMonth && <span className="text-red-500">{errorMonth}</span>}
+      </div>
+
+      <div>
+        <label htmlFor="birth-year">Year</label>
+        <input
+          type="text"
+          name="birth-year"
+          id="birth-year"
+          value={birthYear}
+          onChange={(e) => setBirthYear(e.target.value)}
+        />
+        {errorYear && <span className="text-red-500">{errorYear}</span>}
+      </div>
+
+      <button onClick={calculateAge}>Calculate Age</button>
+
+      <div>
+        <p>
+          Age:{" "}
+          {ageYear !== null ? `${ageYear} years, ` : "--"}{" "}
+          {ageMonth !== null ? `${ageMonth} months, ` : "--"}{" "}
+          {ageDay !== null ? `${ageDay} days` : "--"}
+        </p>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
