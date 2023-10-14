@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
+import arrow from "./assets/images/icon-arrow.svg"
 
 function App() {
   const [birthDay, setBirthDay] = useState<string>("");
@@ -23,24 +24,10 @@ function App() {
     const year = parseInt(birthYear);
 
     // Check if the inputs are valid
-    if (
-      isNaN(day) ||
-      isNaN(month) ||
-      isNaN(year) ||
-      day <= 0 ||
-      day > 31 ||
-      month <= 0 ||
-      month > 12 ||
-      year > currentDate.getFullYear()
-    ) {
-      setErrorDay("Invalid day");
-      setErrorMonth("Invalid month");
-      setErrorYear("Invalid year");
-    } else {
-      setErrorDay("");
-      setErrorMonth("");
-      setErrorYear("");
-
+     isNaN(day) || day <= 0 || day > 31 ? setErrorDay("Invalid day") : setErrorDay("");
+     isNaN(month) || month <= 0 || month > 12 ? setErrorMonth("Invalid month") : setErrorMonth("");
+     year > currentDate.getFullYear() || isNaN(year) ? setErrorYear("Invalid year") : setErrorYear("");
+     
       // Calculate the age
       const ageDate = new Date(
         currentDate.getTime() - new Date(year, month - 1, day).getTime()
@@ -53,58 +40,86 @@ function App() {
       setAgeYear(ageYears);
       setAgeMonth(ageMonths);
       setAgeDay(ageDays);
-    }
   };
 
   return (
-    <div>
-      <div>
-        <label htmlFor="birth-day">Day</label>
-        <input
-          type="text"
-          name="birth-day"
-          id="birth-day"
-          value={birthDay}
-          onChange={(e) => setBirthDay(e.target.value)}
-        />
-        {errorDay && <span className="text-red-500">{errorDay}</span>}
-      </div>
+    <main className = 'flex items-center justify-center bg-gray-200 w-screen h-screen'>
 
-      <div>
-        <label htmlFor="birth-month">Month</label>
-        <input
-          type="text"
-          name="birth-month"
-          id="birth-month"
-          value={birthMonth}
-          onChange={(e) => setBirthMonth(e.target.value)}
-        />
-        {errorMonth && <span className="text-red-500">{errorMonth}</span>}
-      </div>
+      <div className = 'h-[25rem] xs:max-sm:w-full sm:max-2xl:w-fit xs:max-sm:mx-4 bg-white p-10 grid' >
 
-      <div>
-        <label htmlFor="birth-year">Year</label>
-        <input
-          type="text"
-          name="birth-year"
-          id="birth-year"
-          value={birthYear}
-          onChange={(e) => setBirthYear(e.target.value)}
-        />
-        {errorYear && <span className="text-red-500">{errorYear}</span>}
-      </div>
+        <div className = 'flex flex-col'>
+          <div           
+              className = 'flex'
+              title = 'inputs'
+          >
 
-      <button onClick={calculateAge}>Calculate Age</button>
+              <div   
+                  className = 'grid mr-2'
+                  title = 'birth-day' 
+              >
+                <label htmlFor="birth-day"> Day </label>
+                <input
+                  type = "text"
+                  name = "birth-day"
+                  id = "birth-day"
+                  className = 'border m-2 ml-0 xs:max-sm:w-24 sm:max-2xl:w-28 h-12 outline-purple indent-4 '
+                  value={birthDay}
+                  onChange={(e) => setBirthDay(e.target.value)}
+                />
+                {errorDay && <span className="text-red-500">{errorDay}</span>}
+              </div>
 
-      <div>
-        <p>
-          Age:{" "}
-          {ageYear !== null ? `${ageYear} years, ` : "--"}{" "}
-          {ageMonth !== null ? `${ageMonth} months, ` : "--"}{" "}
-          {ageDay !== null ? `${ageDay} days` : "--"}
-        </p>
+              <div
+                  className = 'grid mr-2'
+                  title = 'birth-month' 
+              >
+                <label htmlFor="birth-month"> Month </label>
+                <input
+                  type = "text"
+                  name = "birth-month"
+                  id = "birth-month"
+                  className = 'border m-2 ml-0 xs:max-sm:w-24 sm:max-2xl:w-28 h-12 outline-purple indent-4 '
+                  value={birthMonth}
+                  onChange={(e) => setBirthMonth(e.target.value)}
+                />
+                {errorMonth && <span className="text-red-500">{errorMonth}</span>}
+              </div>
+
+              <div
+                 className = 'grid mr-2'
+                 title = 'birth-year' 
+              >
+                <label htmlFor="birth-year"> Year </label>
+                <input
+                  type = "text"
+                  name = "birth-year"
+                  id = "birth-year"
+                  className = 'border m-2 ml-0 xs:max-sm:w-24 sm:max-2xl:w-28 h-12 outline-purple indent-4 '
+                  value={birthYear}
+                  onChange={(e) => setBirthYear(e.target.value)}
+                />
+                {errorYear && <span className="text-red-500">{errorYear}</span>}
+            </div>
+          </div>
+          
+          <div className = "flex justify-start items-center">
+            <hr className = 'w-[26rem] border' />
+            <button 
+                className = 'w-20 h-20 rounded-full bg-purple hover:bg-off-black flex justify-center items-center outline-none '
+                onClick = { calculateAge }
+            >
+              <img src = { arrow } />
+            </button>
+          </div>
+        </div>
+
+        <div className = "grid">
+          <h1> {ageYear !== null && ageYear > 0 ? `${ageYear} ` : "--"} years </h1>
+          <h1> {ageMonth !== null && ageMonth > 0 ? `${ageMonth} ` : "--"} months </h1>
+          <h1> {ageDay !== null && ageDay > 0 ? `${ageDay} ` : "--"} days </h1>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
 
