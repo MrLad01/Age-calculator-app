@@ -46,13 +46,11 @@ function App() {
     <main className = 'flex items-center justify-center bg-gray-200 w-screen h-screen'>
 
       <div className = 'h-[25rem] xs:max-sm:w-full sm:max-2xl:w-fit xs:max-sm:mx-4 bg-white p-10 grid' >
-
         <div className = 'flex flex-col'>
           <div           
               className = 'flex'
               title = 'inputs'
           >
-
               <div   
                   className = 'grid mr-2'
                   title = 'birth-day' 
@@ -69,6 +67,7 @@ function App() {
                 {errorDay && <span className="text-red-500">{errorDay}</span>}
               </div>
 
+
               <div
                   className = 'grid mr-2'
                   title = 'birth-month' 
@@ -84,6 +83,7 @@ function App() {
                 />
                 {errorMonth && <span className="text-red-500">{errorMonth}</span>}
               </div>
+
 
               <div
                  className = 'grid mr-2'
@@ -102,6 +102,7 @@ function App() {
             </div>
           </div>
           
+
           <div className = "flex justify-start items-center">
             <hr className = 'w-[26rem] border' />
             <button 
@@ -112,6 +113,7 @@ function App() {
             </button>
           </div>
         </div>
+
 
         <div className = "grid">
           <h1> {ageYear !== null && ageYear > 0 ? `${ageYear} ` : "--"} years </h1>
