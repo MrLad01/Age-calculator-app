@@ -43,9 +43,9 @@ function App() {
   };
 
   return (
-    <main className = 'flex items-center justify-center bg-gray-200 w-screen h-screen'>
+    <main className = 'flex items-center justify-center bg-gray-200 w-screen h-screen xs:max-sm:p-8'>
 
-      <div className = 'h-[25rem] xs:max-sm:w-full sm:max-2xl:w-fit xs:max-sm:mx-4 bg-white p-10 grid' >
+      <div className = 'h-[25rem] xs:max-sm:w-full  sm:max-2xl:w-fit xs:max-sm:mx-4 bg-white p-8 grid rounded-ee-[10rem] rounded-xl' >
         <div className = 'flex flex-col'>
           <div           
               className = 'flex'
@@ -55,12 +55,12 @@ function App() {
                   className = 'grid mr-2'
                   title = 'birth-day' 
               >
-                <label htmlFor="birth-day"> Day </label>
+                <label htmlFor="birth-day" className = "text-off-black text-xs tracking-widest opacity-70" > DAY </label>
                 <input
                   type = "text"
                   name = "birth-day"
                   id = "birth-day"
-                  className = 'border m-2 ml-0 xs:max-sm:w-24 sm:max-2xl:w-28 h-12 outline-purple indent-4 '
+                  className = 'border m-1 ml-0 xs:max-sm:w-16 sm:max-2xl:w-28 h-12 outline-purple indent-4 rounded-md xs:max-2xl:w-2/5'
                   value={birthDay}
                   onChange={(e) => setBirthDay(e.target.value)}
                 />
@@ -72,12 +72,12 @@ function App() {
                   className = 'grid mr-2'
                   title = 'birth-month' 
               >
-                <label htmlFor="birth-month"> Month </label>
+                <label htmlFor="birth-month" className = "text-off-black text-xs tracking-widest opacity-70" > MONTH </label>
                 <input
                   type = "text"
                   name = "birth-month"
                   id = "birth-month"
-                  className = 'border m-2 ml-0 xs:max-sm:w-24 sm:max-2xl:w-28 h-12 outline-purple indent-4 '
+                  className = 'border m-1 ml-0 xs:max-sm:w-16 sm:max-2xl:w-28 h-12 outline-purple indent-4 rounded-md xs:max-2xl:w-2/5'
                   value={birthMonth}
                   onChange={(e) => setBirthMonth(e.target.value)}
                 />
@@ -89,12 +89,12 @@ function App() {
                  className = 'grid mr-2'
                  title = 'birth-year' 
               >
-                <label htmlFor="birth-year"> Year </label>
+                <label htmlFor="birth-year" className = "text-off-black text-xs tracking-widest opacity-70" > YEAR </label>
                 <input
                   type = "text"
                   name = "birth-year"
                   id = "birth-year"
-                  className = 'border m-2 ml-0 xs:max-sm:w-24 sm:max-2xl:w-28 h-12 outline-purple indent-4 '
+                  className = 'border m-1 ml-0 xs:max-sm:w-16 sm:max-2xl:w-28 h-12 outline-purple indent-4 rounded-md'
                   value={birthYear}
                   onChange={(e) => setBirthYear(e.target.value)}
                 />
@@ -103,22 +103,22 @@ function App() {
           </div>
           
 
-          <div className = "flex justify-start items-center">
-            <hr className = 'w-[26rem] border' />
+          <div className = "flex justify-start items-center my-2">
+            <hr className = 'w-[26rem] border xs:max-sm:w-4/5 ' />
             <button 
-                className = 'w-20 h-20 rounded-full bg-purple hover:bg-off-black flex justify-center items-center outline-none '
+                className = 'w-16 h-16 rounded-full bg-purple hover:bg-off-black flex justify-center items-center outline-none '
                 onClick = { calculateAge }
             >
-              <img src = { arrow } />
+              <img src = { arrow } className='w-1/2 h-1/2' />
             </button>
           </div>
         </div>
 
 
         <div className = "grid">
-          <h1> {ageYear !== null && ageYear > 0 ? `${ageYear} ` : "--"} years </h1>
-          <h1> {ageMonth !== null && ageMonth > 0 ? `${ageMonth} ` : "--"} months </h1>
-          <h1> {ageDay !== null && ageDay > 0 ? `${ageDay} ` : "--"} days </h1>
+          <h1 className = 'font-extrabold text-6xl italic xs:max-sm:text-4xl'> <span className = 'text-purple'> { ageYear !== null && ageYear > 0 ? `${ageYear} ` : "--"} </span>  years </h1>
+          <h1 className = 'font-extrabold text-6xl italic xs:max-sm:text-4xl my-1'> <span className = 'text-purple'> { ageMonth !== null && ageMonth > 0 ?  `${ageMonth} ` : "--" } </span>  months </h1>
+          <h1 className = 'font-extrabold text-6xl italic xs:max-sm:text-4xl'> <span className = 'text-purple'> { ageDay !== null && ageDay > 0 ? `${ageDay} ` : "--" } </span>  days </h1>
         </div>
       </div>
     </main>
