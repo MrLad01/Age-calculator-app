@@ -105,12 +105,12 @@ function App() {
 
           <div className = "flex justify-start items-center my-2">
             <hr className = 'w-[26rem] border xs:max-sm:w-4/5 ' />
-            <button 
-                className = 'w-16 h-16 rounded-full bg-purple hover:bg-off-black flex justify-center items-center outline-none '
+            <div 
+                className = 'w-16 h-16 rounded-full bg-purple hover:bg-off-black flex justify-center items-center outline-none cursor-pointer'
                 onClick = { calculateAge }
             >
-              <img src = { arrow } className='w-1/2 h-1/2' />
-            </button>
+              <img src = { arrow } className='w-1/2 h-1/2' alt='arrow' />
+            </div>
           </div>
         </div>
 
